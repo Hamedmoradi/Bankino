@@ -2,7 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
-      <profile name="Annotation profile for PooyaByte" enabled="true">
+      <profile name="Annotation profile for Bankino" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -23,11 +23,13 @@
         </processorPath>
         <module name="PooyaByte" />
         <module name="pooyaByte" />
+        <module name="Bankino" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Bankino" options="-parameters" />
       <module name="PooyaByte" options="-parameters" />
       <module name="pooyaByte" options="-parameters" />
     </option>

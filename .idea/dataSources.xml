@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="PooyaByte" uuid="9b47b5a0-1b0b-4e38-b695-59b0a6c31a8f">
+    <data-source source="LOCAL" name="bankino@localhost" uuid="c3dd0b01-7626-4d61-a6e3-9491d4405dfd">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://127.0.0.1:5432/PooyaByte</jdbc-url>
+      <jdbc-url>jdbc:postgresql://localhost:5432/bankino</jdbc-url>
     </data-source>
   </component>
 </project>

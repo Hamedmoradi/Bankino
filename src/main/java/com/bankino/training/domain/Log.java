@@ -23,8 +23,6 @@ private String serviceName;
 @Column(name = "successRate")
 private boolean successRate;
 
-private String json;
-
 public int getId() {
 	return id;
 }

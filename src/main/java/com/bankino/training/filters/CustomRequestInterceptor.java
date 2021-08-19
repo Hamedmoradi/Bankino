@@ -23,7 +23,6 @@ public boolean preHandle(HttpServletRequest request, HttpServletResponse respons
 	HttpServletRequest requestCacheWrapperObject = new ContentCachingRequestWrapper(request);
 	requestCacheWrapperObject.getParameterMap();
 	((ContentCachingRequestWrapper) requestCacheWrapperObject).getContentAsByteArray();
-	// Read inputStream from requestCacheWrapperObject and log it
 	return true;
 }
 

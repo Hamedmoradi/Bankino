@@ -17,7 +17,6 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -68,16 +67,12 @@ public class CounterReportServiceImpl implements CounterReportService {
             throw new ReportFromInactiveCounterException(counter.getId().toString());
         }
 
-//            try {
                 startDate = getDateFromJson(json, "startDate");
                 if (json.has("endDate")) {
                     report.setEndDate(getDateFromJson(json, "endDate"));
                 } else {
                     report.setEndDate(null);
                 }
-//            } catch (ParseException e) {
-//                e.printStackTrace();
-//            }
             report.setStartDate(startDate);
 
             report.setHour(json.getInt("hour"));
@@ -97,7 +92,6 @@ public class CounterReportServiceImpl implements CounterReportService {
     }
 
     public void listOfMessages(ConsumerRecords<String, String> records) {
-//        logger.info("new messages:");
         if (records.count() == 0) {
             logger.info("empty messages");
         }

@@ -23,8 +23,6 @@ public ProducerFactory<String, String> producerFactoryString() {
 	Map<String, Object> configProps = new HashMap<>();
 	
 	configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
-//	configProps.put("group.id", "bankino_group_id");
-//	configProps.put("acks","all");
 	configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
 	configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
 

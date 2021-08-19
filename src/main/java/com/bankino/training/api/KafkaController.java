@@ -1,7 +1,6 @@
 package com.bankino.training.api;
 
 import com.bankino.training.kafka.KafkaProducerConfig;
-import com.bankino.training.service.serviceImpl.CounterServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;

@@ -2,6 +2,8 @@ package com.bankino.training.api;
 
 import com.bankino.training.service.ElectricityPriceService;
 import io.swagger.annotations.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,8 @@ import java.util.Date;
 @RequestMapping("/api/electricity")
 @Api(value = "Swagger2DemoRestController", description = "REST APIs related to electricity Entity!!!!")
 public class ElectricityPriceResourceApi {
+    public static final Logger logger = LoggerFactory.getLogger(ElectricityPriceResourceApi.class);
+
     @Autowired
     private ElectricityPriceService electricityPriceService;
 
@@ -38,8 +42,8 @@ public class ElectricityPriceResourceApi {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        System.out.println(startDate + "\t" + sdate);
-        System.out.println(endDate + "\t" + edate);
+        logger.info(startDate + "\t" + sdate);
+        logger.info(endDate + "\t" + edate);
 
         String result=electricityPriceService.calculatePeriodicCounterPrice(sdate, edate, counterId);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/price")

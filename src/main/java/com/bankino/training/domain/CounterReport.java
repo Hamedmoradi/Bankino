@@ -30,10 +30,10 @@ private GeographicalAreaCounter geographicalAreaCounter;
 private Counter counter;
 
 @Column(name = "USAGE")
-private BigDecimal Usage;
+private BigDecimal usage;
 
 @Column(name = "SEND_CONFIRMATION_DATA")
-private boolean SendConfirmationData;
+private boolean sendConfirmationData;
 
 	public CounterReport() {
 	}
@@ -45,8 +45,8 @@ private boolean SendConfirmationData;
 	this.hour = hour;
 	this.geographicalAreaCounter = geographicalAreaCounter;
 	this.counter = counter;
-	Usage = usage;
-	SendConfirmationData = sendConfirmationData;
+	this.usage = usage;
+	this.sendConfirmationData = sendConfirmationData;
 }
 
 public Long getId() {
@@ -98,18 +98,18 @@ public void setCounter(Counter counter) {
 }
 
 public BigDecimal getUsage() {
-	return Usage;
+	return usage;
 }
 
 public void setUsage(BigDecimal usage) {
-	Usage = usage;
+	this.usage = usage;
 }
 
 public boolean isSendConfirmationData() {
-	return SendConfirmationData;
+	return sendConfirmationData;
 }
 
 public void setSendConfirmationData(boolean sendConfirmationData) {
-	SendConfirmationData = sendConfirmationData;
+	this.sendConfirmationData = sendConfirmationData;
 }
 }

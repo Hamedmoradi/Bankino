@@ -22,7 +22,7 @@ private Counter counterId;
 private String serviceName;
 @Column(name = "successRate")
 private boolean successRate;
-//TODO
+
 private String json;
 
 public int getId() {

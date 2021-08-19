@@ -39,7 +39,7 @@ public class CounterResourceApi {
         return ResponseEntity.created(location).build();
     }
 
-    @RequestMapping(value = "/{counterId}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{counterId}")
     @ApiOperation(value = "remove counter ", response = Iterable.class)
     public void delete(@PathVariable Long counterId) {
         counterService.delete(counterId);

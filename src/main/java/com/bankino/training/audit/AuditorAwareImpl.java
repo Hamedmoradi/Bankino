@@ -15,7 +15,6 @@ public Optional<String> getCurrentAuditor() {
 	
 	if (authentication == null) {
 		return Optional.of("null");
-		//TODO for insert in log table call this method for authentication again but Authentication is null .
 	}
 	return Optional.of(((UserDetails) authentication.getPrincipal()).getUsername());
 }

@@ -35,7 +35,6 @@ private CounterEventPublisher counterEventPublisher;
 public Optional<Counter> getById(Long id) {
 	Optional<Counter> optionalCounter = counterRepository.findById(id);
 	if (optionalCounter.isPresent()) {
-//		return CustomerDto.customerToCustomerDto(optionalCustomer.get());
 		return optionalCounter;
 	} else {
 		return Optional.empty();

@@ -1,6 +1,5 @@
 package com.bankino.training.domain;
 
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.persistence.*;
 import java.io.Serializable;

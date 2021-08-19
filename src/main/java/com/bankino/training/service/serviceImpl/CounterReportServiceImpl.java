@@ -11,9 +11,10 @@ import com.bankino.training.service.CounterReportService;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.support.Acknowledgment;
-import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -26,19 +27,20 @@ import java.util.Locale;
 @Service
 public class CounterReportServiceImpl implements CounterReportService {
 
+    public static final Logger logger = LoggerFactory.getLogger(CounterReportServiceImpl.class);
+
+
     private final CounterReportRepository counterReportRepository;
     private final CounterRepository counterRepository;
     private final GeographicalAreaCounterRepository geographicalAreaCounterRepository;
 
-    public Acknowledgment acknowledgment;
 
-    private final KafkaConsumerConfig kafkaConsumerConfig;
 
-    public CounterReportServiceImpl(CounterReportRepository counterReportRepository, CounterRepository counterRepository, GeographicalAreaCounterRepository geographicalAreaCounterRepository, KafkaConsumerConfig kafkaConsumerConfig) {
+    public CounterReportServiceImpl(CounterReportRepository counterReportRepository, CounterRepository counterRepository,
+                                    GeographicalAreaCounterRepository geographicalAreaCounterRepository) {
         this.counterReportRepository = counterReportRepository;
         this.counterRepository = counterRepository;
         this.geographicalAreaCounterRepository = geographicalAreaCounterRepository;
-        this.kafkaConsumerConfig = kafkaConsumerConfig;
     }
 
 
@@ -52,12 +54,12 @@ public class CounterReportServiceImpl implements CounterReportService {
         report.setCounter(counter);
         report.setGeographicalAreaCounter(geographicalAreaCounter);
         Date startDate = null;
-        Date endDate=null;
+        Date endDate = null;
         try {
-            startDate = getDateFromJson(json,"startDate");
+            startDate = getDateFromJson(json, "startDate");
             if (json.has("endDate")) {
-                report.setEndDate(getDateFromJson(json,"endDate"));
-            }else {
+                report.setEndDate(getDateFromJson(json, "endDate"));
+            } else {
                 report.setEndDate(null);
             }
         } catch (ParseException e) {
@@ -75,26 +77,22 @@ public class CounterReportServiceImpl implements CounterReportService {
 
     private Date getDateFromJson(JSONObject json, String key) throws ParseException {
         DateFormat format = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
-        Date date = format.parse((json.getString(key)));
-        return date;
+        return format.parse((json.getString(key)));
     }
 
     public void listOfMessages(ConsumerRecords<String, String> records) {
-        System.out.println("new messages:");
-        if (records.count() == 0) System.out.println("empty");
+        logger.info("new messages:");
+        if (records.count() == 0) {
+            logger.info("empty");
+        }
         for (ConsumerRecord<String, String> record : records) {
-            System.out.printf("topic=%s,partition=%s,key=%s,value=%s\n", record.topic(), record.partition(), record.key(), record.value());
+            logger.info("topic=%s,partition=%s,key=%s,value=%s\n", record.topic(), record.partition(), record.key(), record.value());
             registerCounter(record.value());
-//            Acknowledgment acknowledgment = message..getHeaders().get(KafkaHeaders.ACKNOWLEDGMENT, Acknowledgment.class);
-
-            if(acknowledgment != null) { System.out.println("Acknowledgment provided");
-                acknowledgment.acknowledge(); }
         }
-        }
+    }
 
     @Scheduled(fixedRate = 60000)
     public void finalConsume() throws InterruptedException {
-//        ConsumerRecords<String, String> records=kafkaConsumerConfig.consumeMessage("testTopic");
         KafkaConsumerConfig kafka = new KafkaConsumerConfig();
         ConsumerRecords<String, String> records = kafka.consumeMessage("testTopic");
         listOfMessages(records);

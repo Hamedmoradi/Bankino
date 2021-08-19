@@ -6,6 +6,8 @@ import com.bankino.training.repository.ConfigRepository;
 import com.bankino.training.repository.CounterReportRepository;
 import com.bankino.training.repository.ElectricityRateRepository;
 import com.bankino.training.service.ElectricityPriceService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,14 +17,15 @@ import java.util.List;
 
 @Service
 public class ElectricityPriceServiceImpl implements ElectricityPriceService {
+
+    public static final Logger logger = LoggerFactory.getLogger(ElectricityPriceServiceImpl.class);
+
     @Autowired
     private final CounterReportRepository counterReportRepository;
     @Autowired
     private final ConfigRepository configRepository;
     @Autowired
     private final ElectricityRateRepository electricityRateRepository;
-
-    private static final String total = "TOTAL_DAILY_USAGE";
 
     public ElectricityPriceServiceImpl(CounterReportRepository counterReportRepository, ConfigRepository configRepository, ElectricityRateRepository electricityRateRepository) {
         this.counterReportRepository = counterReportRepository;
@@ -57,7 +60,7 @@ public class ElectricityPriceServiceImpl implements ElectricityPriceService {
         if (totalUsage.compareTo(BigDecimal.valueOf(800)) == 1) {
             totalCost.add(BigDecimal.valueOf(800));
         }
-        System.out.println(totalCost + "" + totalUsage);
+        logger.info("totalCost:" + totalCost + "----totalUsage:" + totalUsage);
         return "totalCost:" + totalCost + "totalUsage:" + totalUsage;
     }
 

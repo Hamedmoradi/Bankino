@@ -19,7 +19,7 @@ private String counterNo;
 
 @JoinColumn(name = "GEOGRAPHICAL_AREA_COUNTER_ID")
 @ManyToOne
-private GeographicalAreaCounter GeographicalAreaCounter;
+private GeographicalAreaCounter geographicalAreaCounter;
 
 @Column(name = "COUNTER_CREATE_DATE", nullable = false, updatable = false)
 //@CreatedDate
@@ -35,7 +35,7 @@ public Counter() {
 public Counter(String counterNo, com.bankino.training.domain.GeographicalAreaCounter geographicalAreaCounter,
                Date counterCreateDate, Integer status) {
 	this.counterNo = counterNo;
-	GeographicalAreaCounter = geographicalAreaCounter;
+	this.geographicalAreaCounter = geographicalAreaCounter;
 	this.counterCreateDate = counterCreateDate;
 	this.status = status;
 }
@@ -57,11 +57,11 @@ public void setCounterNo(String counterNo) {
 }
 
 public GeographicalAreaCounter getGeographicalAreaCounter() {
-	return GeographicalAreaCounter;
+	return geographicalAreaCounter;
 }
 
 public void setGeographicalAreaCounter(GeographicalAreaCounter geographicalAreaCounter) {
-	GeographicalAreaCounter = geographicalAreaCounter;
+	this.geographicalAreaCounter = geographicalAreaCounter;
 }
 
 public Date getCounterCreateDate() {

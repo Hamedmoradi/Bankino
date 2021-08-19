@@ -1,7 +1,6 @@
 package com.bankino.training.service;
 
 import com.bankino.training.domain.Counter;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;

@@ -24,14 +24,10 @@ public void onApplicationEvent(CounterEvent event) {
 	logger.info("counter " + event.getMessage() + " with details : " + event.getCounter());
 	Log log = new Log();
 	log.setCounterId(event.getCounter());
-	log.setContent("json");//TODO maybe a JSON value
-	log.setServiceName(ServiceName.CUSTOMER_REGISTRATION.getName());//TODO
+	log.setContent("json");
+	log.setServiceName(ServiceName.CUSTOMER_REGISTRATION.getName());
 	log.setAction(ActionType.INSERT.getType());
 	log.setSuccessRate(true);
-//	log.setLastModifiedDate(new Date(event.getCustomer().getModifiedDate()));
-//	log.setLastModifiedBy(event.getCustomer().getLastModifiedBy());
-//	log.setCreationDate(new Date(event.getCustomer().getCreatedBy()));
-//	log.setCreatedBy(event.getCustomer().getCreatedBy());
 	logService.save(log);
 	
 }

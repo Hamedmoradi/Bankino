@@ -66,7 +66,7 @@ import java.util.Collections;
 import java.util.Properties;
 @Component
 public class KafkaConsumerConfig {
-    private static Properties kafkaProps;
+    private static Properties   kafkaProps;
     private static Consumer<String, String> kafkaConsumer;
 
     static {

@@ -1,4 +1,4 @@
-package com.bankino.training;
+package com.bankino.training.filters;
 
 import org.springframework.web.filter.CommonsRequestLoggingFilter;
 

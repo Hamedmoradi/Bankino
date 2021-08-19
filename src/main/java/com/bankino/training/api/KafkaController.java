@@ -1,6 +1,8 @@
 package com.bankino.training.api;
 
 import com.bankino.training.kafka.KafkaProducerConfig;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,7 @@ import java.nio.file.Path;
 
 @RestController
 @RequestMapping(value = "/kafka")
+@Api(value = "Swagger2DemoRestController", description = "REST APIs related to kafka Entity!!!!")
 public class KafkaController {
 
     private final KafkaProducerConfig producer;
@@ -26,6 +29,7 @@ public class KafkaController {
     }
 
     @PostMapping(value = "/publish")
+    @ApiOperation(value = "kafka", response = Iterable.class)
     public void sendMessageToKafkaTopic() {
 
         try {
@@ -45,7 +49,5 @@ public class KafkaController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 }

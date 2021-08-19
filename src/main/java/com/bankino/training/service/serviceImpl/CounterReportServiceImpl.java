@@ -12,6 +12,8 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.support.Acknowledgment;
+import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,8 @@ public class CounterReportServiceImpl implements CounterReportService {
     private final CounterReportRepository counterReportRepository;
     private final CounterRepository counterRepository;
     private final GeographicalAreaCounterRepository geographicalAreaCounterRepository;
+
+    public Acknowledgment acknowledgment;
 
     private final KafkaConsumerConfig kafkaConsumerConfig;
 
@@ -81,8 +85,12 @@ public class CounterReportServiceImpl implements CounterReportService {
         for (ConsumerRecord<String, String> record : records) {
             System.out.printf("topic=%s,partition=%s,key=%s,value=%s\n", record.topic(), record.partition(), record.key(), record.value());
             registerCounter(record.value());
+//            Acknowledgment acknowledgment = message..getHeaders().get(KafkaHeaders.ACKNOWLEDGMENT, Acknowledgment.class);
+
+            if(acknowledgment != null) { System.out.println("Acknowledgment provided");
+                acknowledgment.acknowledge(); }
         }
-    }
+        }
 
     @Scheduled(fixedRate = 60000)
     public void finalConsume() throws InterruptedException {

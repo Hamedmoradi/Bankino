@@ -2,10 +2,7 @@ package com.bankino.training.api;
 
 import com.bankino.training.domain.Counter;
 import com.bankino.training.service.CounterService;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/counter")
+@Api(value = "Swagger2DemoRestController", description = "REST APIs related to counter Entity!!!!")
 public class CounterResourceApi {
 
     @Autowired
@@ -42,26 +40,22 @@ public class CounterResourceApi {
     }
 
     @RequestMapping(value = "/{counterId}", method = RequestMethod.DELETE)
-    public void delete(
-//		@ApiParam(value = "remove counter", required = true)
-//                   @Valid
-            @PathVariable Long counterId) {
+    @ApiOperation(value = "remove counter ", response = Iterable.class)
+    public void delete(@PathVariable Long counterId) {
         counterService.delete(counterId);
 
     }
 
     @GetMapping(value = "/allCounter")
+    @ApiOperation(value = "retrieve all counter ", response = Iterable.class)
     public List<Counter> retrieveAll() {
         return counterService.getAll();
     }
 
     @GetMapping(value = "/{counterId}")
+    @ApiOperation(value = "retrieve a counter ", response = Iterable.class)
     public Optional<Counter> retrieveOneCounter(@PathVariable Long counterId) {
         return counterService.getById(counterId);
     }
 
-//@GetMapping(value = "/{counterId}")
-//public Optional<Counter> retrieveCounterUsage(@PathVariable Long counterId){
-//	return counterService.getById(counterId);
-//}
 }

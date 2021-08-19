@@ -17,11 +17,11 @@ public class RestExceptionHandler {
 
     private  static final Logger logger = LoggerFactory.getLogger(RestExceptionHandler.class);
 
-    @ExceptionHandler(value = CustomerRegisteredPreviouslyException.class)
-    public ResponseEntity<Object> handleDuplicateCustomerException(CustomerRegisteredPreviouslyException exception) {
-        logger.error(exception.getMessage(), exception);
-        return new ResponseEntity<>("customer checked that duplicate national Code does not register again", HttpStatus.FORBIDDEN);
-    }
+//    @ExceptionHandler(value = CustomerRegisteredPreviouslyException.class)
+//    public ResponseEntity<Object> handleDuplicateCustomerException(CustomerRegisteredPreviouslyException exception) {
+//        logger.error(exception.getMessage(), exception);
+//        return new ResponseEntity<>("customer checked that duplicate national Code does not register again", HttpStatus.FORBIDDEN);
+//    }
 
     @ExceptionHandler(value = NotificationTypeNotSelectedException.class)
     public ResponseEntity<Object> handleSelectNotificationException(NotificationTypeNotSelectedException exception) {

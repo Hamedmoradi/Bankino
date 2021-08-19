@@ -1,6 +1,8 @@
 package com.bankino.training.service;
 
+import java.text.ParseException;
+
 public interface CounterReportService {
 
-     void  registerCounter(String jsonMessage);
+     void registerCounterReport(String jsonMessage) throws ParseException;
 }

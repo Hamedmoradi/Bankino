@@ -27,7 +27,7 @@ public class EmailServiceImpl implements EmailService {
     public void sendEmail() {
 
         SimpleMailMessage msg = new SimpleMailMessage();
-        msg.setTo("to_1@gmail.com", "to_2@gmail.com", "to_3@yahoo.com");
+        msg.setTo("hamedmoradi.mailsbox@gmail.com");
 
         msg.setSubject("Testing from Spring Boot");
         msg.setText("Hello World \n Spring Boot Email");

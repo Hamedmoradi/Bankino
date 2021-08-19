@@ -2,7 +2,6 @@ package com.bankino.training.event.listener;
 
 import com.bankino.training.domain.Log;
 import com.bankino.training.enums.ActionType;
-import com.bankino.training.enums.ServiceName;
 import com.bankino.training.event.CounterEvent;
 import com.bankino.training.service.LogService;
 import org.slf4j.Logger;
@@ -25,7 +24,6 @@ public void onApplicationEvent(CounterEvent event) {
 	Log log = new Log();
 	log.setCounterId(event.getCounter());
 	log.setContent("json");
-	log.setServiceName(ServiceName.CUSTOMER_REGISTRATION.getName());
 	log.setAction(ActionType.INSERT.getType());
 	log.setSuccessRate(true);
 	logService.save(log);

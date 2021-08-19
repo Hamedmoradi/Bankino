@@ -38,7 +38,12 @@ public class ElectricityPriceResourceApi {
         Date edate = null;
         try {
             sdate = formatter.parse(startDate);
-            edate = formatter.parse(endDate);
+            if (endDate!=null){
+                edate = formatter.parse(endDate);
+            }else {
+                edate = null;
+            }
+
         } catch (ParseException e) {
             e.printStackTrace();
         }

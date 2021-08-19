@@ -24,13 +24,12 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
-    public void sendEmail() {
+    public void sendEmail(String text) {
 
         SimpleMailMessage msg = new SimpleMailMessage();
         msg.setTo("hamedmoradi.mailsbox@gmail.com");
-
-        msg.setSubject("Testing from Spring Boot");
-        msg.setText("Hello World \n Spring Boot Email");
+        msg.setSubject("report from counter system");
+        msg.setText(text);
 
         javaMailSender.send(msg);
 

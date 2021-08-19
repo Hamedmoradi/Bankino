@@ -2,6 +2,8 @@ package com.bankino.training.service.serviceImpl;
 
 import com.bankino.training.domain.Counter;
 import com.bankino.training.event.publisher.CounterEventPublisher;
+import com.bankino.training.exception.CounterExistException;
+import com.bankino.training.exception.CounterNoInvalidException;
 import com.bankino.training.repository.CounterRepository;
 import com.bankino.training.service.CounterService;
 import org.slf4j.Logger;
@@ -19,62 +21,73 @@ import java.util.Optional;
 @Service
 public class CounterServiceImpl implements CounterService, ApplicationEventPublisherAware {
 
-public static final Logger logger = LoggerFactory.getLogger(CounterServiceImpl.class);
-@Autowired
-private CounterRepository counterRepository;
+    public static final Logger logger = LoggerFactory.getLogger(CounterServiceImpl.class);
+    @Autowired
+    private CounterRepository counterRepository;
 
-@Autowired
-private ApplicationEventPublisher publisher;
+    @Autowired
+    private ApplicationEventPublisher publisher;
 
-@Autowired
-private CounterEventPublisher counterEventPublisher;
+    @Autowired
+    private CounterEventPublisher counterEventPublisher;
 
 
-@EventListener
-@Override
-public Optional<Counter> getById(Long id) {
-	Optional<Counter> optionalCounter = counterRepository.findById(id);
-	if (optionalCounter.isPresent()) {
-		return optionalCounter;
-	} else {
-		return Optional.empty();
-	}
-}
+    @EventListener
+    @Override
+    public Optional<Counter> getById(Long id) {
+        Optional<Counter> optionalCounter = counterRepository.findById(id);
+        if (optionalCounter.isPresent()) {
+            return optionalCounter;
+        } else {
+            return Optional.empty();
+        }
+    }
 
-@Override
-public List<Counter> getAll() {
-	return counterRepository.findAll();
-}
+    @Override
+    public List<Counter> getAll() {
+        return counterRepository.findAll();
+    }
 
-@Transactional
-@Override
-public Counter create(Counter counter) {
-	Counter savedCounter = counterRepository.save(counter);
-	logger.info("Publishing counter event.");
-	publisher.publishEvent(savedCounter);
-	counterEventPublisher.publish("counter ready for save", savedCounter);
-	return savedCounter;
-}
+    @Transactional
+    @Override
+    public Counter create(Counter counter) {
 
-@Override
-public void delete(Long counterId) {
-	counterRepository.deleteById(counterId);
-}
+        counterValidation(counter);
+        Counter savedCounter = counterRepository.save(counter);
+        logger.info("Publishing counter event.");
+        publisher.publishEvent(savedCounter);
+        counterEventPublisher.publish("counter ready for save", savedCounter);
+        return savedCounter;
+    }
 
-@Override
-public Optional<Counter> getCounterByCounterNo(Counter counter) {
-	Optional<Counter> counterByCounterNo = Optional.ofNullable(counterRepository.findCustomerByCounterNo(counter.getCounterNo()));
-	if (counterByCounterNo.isPresent()) {
-		return counterByCounterNo;
-	} else {
-		return Optional.empty();
-	}
-}
+    private void counterValidation(Counter counter) {
+        if (counterRepository.findCounterByCounterNo(counter.getCounterNo()) != null) {
+            throw new CounterExistException(counter.getCounterNo());
+        }
+        if (counter.getCounterNo().length() < 10 || counter.getCounterNo().length() > 10) {
+            throw new CounterNoInvalidException();
+        }
+    }
 
-@Override
-public void setApplicationEventPublisher(ApplicationEventPublisher publisher) {
-	this.publisher = publisher;
-}
+    @Override
+    public void delete(Long counterId) {
+        counterRepository.deleteById(counterId);
+    }
+
+    @Override
+    public Optional<Counter> getCounterByCounterNo(Counter counter) {
+        Optional<Counter> counterByCounterNo = Optional.ofNullable(counterRepository.findCounterByCounterNo(counter.getCounterNo()));
+        if (counterByCounterNo.isPresent()) {
+            return counterByCounterNo;
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public void setApplicationEventPublisher(ApplicationEventPublisher publisher) {
+        this.publisher = publisher;
+    }
 }
 
 

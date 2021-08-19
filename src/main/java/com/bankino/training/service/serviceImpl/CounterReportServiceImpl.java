@@ -4,6 +4,7 @@ import com.bankino.training.domain.Counter;
 import com.bankino.training.domain.CounterReport;
 import com.bankino.training.domain.GeographicalAreaCounter;
 import com.bankino.training.enums.CounterStatus;
+import com.bankino.training.enums.EmailTemplateContent;
 import com.bankino.training.exception.ReportFromInactiveCounterException;
 import com.bankino.training.kafka.KafkaConsumerConfig;
 import com.bankino.training.repository.CounterReportRepository;
@@ -63,7 +64,7 @@ public class CounterReportServiceImpl implements CounterReportService {
         Date endDate = null;
         try{
         if (counter.getStatus().equals(CounterStatus.INACTIVE.getResultCode())) {
-            emailService.sendEmail();
+            emailService.sendEmail(EmailTemplateContent.INACTIVE_COUNTER.getContext()+":"+counter.getId().toString());
             throw new ReportFromInactiveCounterException(counter.getId().toString());
         }
 

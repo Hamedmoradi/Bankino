@@ -5,6 +5,6 @@ import javax.mail.MessagingException;
 import java.io.IOException;
 
 public interface EmailService {
-    void sendEmail();
+    void sendEmail(String text);
     void sendEmailWithAttachment()throws MessagingException, IOException;
 }

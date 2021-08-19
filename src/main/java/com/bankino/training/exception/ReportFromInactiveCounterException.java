@@ -5,7 +5,7 @@ public class ReportFromInactiveCounterException extends BankinoBaseBusinessExcep
 
 
     public ReportFromInactiveCounterException(String message) {
-        super("the counter " + message + " is invalid but sed data to system....");
+        super("the counter " + message + " is inactive but send data to system....");
     }
 
 }

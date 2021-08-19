@@ -20,14 +20,6 @@ public class RestExceptionHandler {
     private static final Logger logger = LoggerFactory.getLogger(RestExceptionHandler.class);
 
 
-
-    @ExceptionHandler(value = NotificationTypeNotSelectedException.class)
-    public ResponseEntity<Object> handleSelectNotificationException(NotificationTypeNotSelectedException exception) {
-        logger.error(exception.getMessage(), exception);
-        return new ResponseEntity<>("any check box not selected....", HttpStatus.NOT_FOUND);
-    }
-
-
     @ExceptionHandler(value = {BankinoBaseBusinessException.class})
     public ResponseEntity<List<ExceptionResponse>> handleBusinessEx(BankinoBaseBusinessException ex) {
         logger.error(ex.getMessage(), ex);
